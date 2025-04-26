@@ -133,7 +133,11 @@ class BasicDemo extends StatelessWidget {
       appBar: AppBar(title: Text('Basic demo')),
       body: Container(
           child: CarouselSlider(
-        options: CarouselOptions(),
+        enableExpand: true,
+        options: CarouselOptions(
+          viewportFraction: 1,
+          enableInfiniteScroll: true,
+        ),
         items: list.map((item) => item).toList(),
       )),
     );
@@ -149,6 +153,8 @@ class NoCenterDemo extends StatelessWidget {
       body: Container(
           child: CarouselSlider(
         options: CarouselOptions(
+          enableInfiniteScroll: true,
+          initialPage: 0,
           disableCenter: true,
         ),
         items: list
