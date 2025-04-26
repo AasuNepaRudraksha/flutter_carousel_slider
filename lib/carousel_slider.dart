@@ -3,6 +3,7 @@ library carousel_slider;
 import 'dart:async';
 
 import 'package:carousel_slider/carousel_state.dart';
+import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -300,7 +301,7 @@ class CarouselSliderState extends State<CarouselSlider>
 
   @override
   Widget build(BuildContext context) {
-    return getGestureWrapper(PageView.builder(
+    return getGestureWrapper(ExpandablePageView.builder(
       padEnds: widget.options.padEnds,
       scrollBehavior: ScrollConfiguration.of(context).copyWith(
         scrollbars: false,
@@ -316,7 +317,8 @@ class CarouselSliderState extends State<CarouselSlider>
       pageSnapping: widget.options.pageSnapping,
       controller: carouselState!.pageController,
       reverse: widget.options.reverse,
-      itemCount: widget.options.enableInfiniteScroll ? null : widget.itemCount,
+      itemCount:
+          (widget.options.enableInfiniteScroll ? null : widget.itemCount) ?? 2,
       key: widget.options.pageViewKey,
       onPageChanged: (int index) {
         int currentPage = getRealIndex(index + carouselState!.initialPage,
