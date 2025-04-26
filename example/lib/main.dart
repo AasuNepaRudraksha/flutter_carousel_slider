@@ -107,18 +107,34 @@ class CarouselDemoHome extends StatelessWidget {
 class BasicDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<int> list = [1, 2, 3, 4, 5];
+    List<Widget> list = [
+      Container(
+        height: 1000,
+        color: Colors.red,
+      ),
+      Container(
+        height: 200,
+        color: Colors.yellow,
+      ),
+      Container(
+        height: 300,
+        color: Colors.green,
+      ),
+      Container(
+        height: 100,
+        color: Colors.pink,
+      ),
+      Container(
+        height: 400,
+        color: Colors.orange,
+      )
+    ];
     return Scaffold(
       appBar: AppBar(title: Text('Basic demo')),
       body: Container(
           child: CarouselSlider(
         options: CarouselOptions(),
-        items: list
-            .map((item) => Container(
-                  child: Center(child: Text(item.toString())),
-                  color: Colors.green,
-                ))
-            .toList(),
+        items: list.map((item) => item).toList(),
       )),
     );
   }

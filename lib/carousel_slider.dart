@@ -192,8 +192,9 @@ class CarouselSliderState extends State<CarouselSlider>
     if (widget.options.height != null) {
       wrapper = Container(height: widget.options.height, child: child);
     } else {
-      wrapper =
-          AspectRatio(aspectRatio: widget.options.aspectRatio, child: child);
+      wrapper = widget.options.aspectRatio == null
+          ? child
+          : AspectRatio(aspectRatio: widget.options.aspectRatio!, child: child);
     }
 
     if (true == widget.disableGesture) {
@@ -318,7 +319,9 @@ class CarouselSliderState extends State<CarouselSlider>
       controller: carouselState!.pageController,
       reverse: widget.options.reverse,
       itemCount:
-          (widget.options.enableInfiniteScroll ? null : widget.itemCount) ?? 2,
+          (widget.options.enableInfiniteScroll ? null : widget.itemCount) ??
+              widget.itemCount ??
+              2,
       key: widget.options.pageViewKey,
       onPageChanged: (int index) {
         int currentPage = getRealIndex(index + carouselState!.initialPage,
@@ -374,14 +377,17 @@ class CarouselSliderState extends State<CarouselSlider>
               distortionValue =
                   Curves.easeOut.transform(distortionRatio as double);
             }
+            double? height;
 
-            final double height = widget.options.height ??
-                MediaQuery.of(context).size.width *
-                    (1 / widget.options.aspectRatio);
+            if (widget.options.aspectRatio != null) {
+              height = widget.options.height ??
+                  MediaQuery.of(context).size.width *
+                      (1 / widget.options.aspectRatio!);
+            }
 
             if (widget.options.scrollDirection == Axis.horizontal) {
               return getCenterWrapper(getEnlargeWrapper(child,
-                  height: distortionValue * height,
+                  height: height == null ? null : (distortionValue * height),
                   scale: distortionValue,
                   itemOffset: itemOffset));
             } else {

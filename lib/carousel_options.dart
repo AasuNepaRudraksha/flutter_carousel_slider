@@ -11,7 +11,7 @@ class CarouselOptions {
   /// Aspect ratio is used if no height have been declared.
   ///
   /// Defaults to 16:9 aspect ratio.
-  final double aspectRatio;
+  final double? aspectRatio;
 
   /// The fraction of the viewport that each page should occupy.
   ///
@@ -135,7 +135,7 @@ class CarouselOptions {
 
   CarouselOptions({
     this.height,
-    this.aspectRatio = 16 / 9,
+    this.aspectRatio,
     this.viewportFraction = 0.8,
     this.initialPage = 0,
     this.enableInfiniteScroll = true,
